@@ -3,11 +3,14 @@ package unisul.progweb.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Entity
 public class Usuario {
 	
-	private @Id @GeneratedValue int id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
 	private String login;
 	private String senha;
 	private String nomeCompleto;
