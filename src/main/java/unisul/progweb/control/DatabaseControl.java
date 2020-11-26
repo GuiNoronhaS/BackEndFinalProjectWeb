@@ -30,12 +30,26 @@ public class DatabaseControl {
 	@GetMapping("/getUser/{id}")
 	public Usuario getUsuario(@PathVariable(value = "id")Integer id) {
 		return this.userRep.findById(id).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Não foi encontrado registro com esse ID"));	
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi encontrado registro com esse ID"));	
 	}
 	
 	@PostMapping("/postAddUser")
 	public Usuario postAddUser(@Validated @RequestBody Usuario user) {
 		return this.userRep.save(user);
+	}
+	
+	@PutMapping("/putAlterarPorID/{id}")
+	public Usuario putAlterarPorId(@PathVariable(value = "id")Integer id, @Validated @RequestBody Usuario userNovo) {
+		Usuario alterar = userNovo;
+		alterar.setId(id);
+		return this.userRep.save(alterar);
+	}
+	
+	@DeleteMapping("/apagar/{id")
+	public ResponseEntity<?> deleteUsuario(@PathVariable(value = "id") Integer id) {
+		Usuario deletar = this.getUsuario(id);
+		this.userRep.delete(deletar);
+		return ResponseEntity.ok().build();
 	}
 
 }
