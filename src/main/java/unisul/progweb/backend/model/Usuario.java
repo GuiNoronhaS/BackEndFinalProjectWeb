@@ -1,33 +1,36 @@
-package unisul.progweb.model;
+package unisul.progweb.backend.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 @Entity
+@Table(name="table_usuario")
 public class Usuario {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String login;
 	private String senha;
 	private String nomeCompleto;
 	private int cpf;
-	private String Nascimento;
+	private String nascimento;
 	private String sexo;
 	private String estadoCivil;
 
-	Usuario() {}
-	
-	Usuario(String login, String senha, String nomeCompleto, int cpf, 
-			String Nascimento, String sexo, String estadoCivil) {
+	public Usuario() {
+	}
+
+	public Usuario(String login, String senha, String nomeCompleto, int cpf, String Nascimento, String sexo,
+			String estadoCivil) {
 		this.login = login;
 		this.senha = senha;
 		this.nomeCompleto = nomeCompleto;
 		this.cpf = cpf;
-		this.Nascimento = Nascimento;
+		this.nascimento = Nascimento;
 		this.sexo = sexo;
 		this.estadoCivil = estadoCivil;
 	}
@@ -73,11 +76,11 @@ public class Usuario {
 	}
 
 	public String getNascimento() {
-		return Nascimento;
+		return nascimento;
 	}
 
 	public void setNascimento(String nascimento) {
-		Nascimento = nascimento;
+		this.nascimento = nascimento;
 	}
 
 	public String getSexo() {
@@ -96,6 +99,17 @@ public class Usuario {
 		this.estadoCivil = estadoCivil;
 	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "Usuario{ " +
+				"login: "+ this.login +
+				", senha: " + this.senha +
+				", nomeCompleto: " + this.nomeCompleto +
+				", cpf: " + this.cpf +
+				", Nascimento: " + this.nascimento +
+				", sexo: " + this.sexo +
+				", Estado Civil: " + this.estadoCivil +
+				" }";
+	}
+
 }

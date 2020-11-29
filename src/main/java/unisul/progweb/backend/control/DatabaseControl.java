@@ -1,13 +1,12 @@
-package unisul.progweb.control;
+package unisul.progweb.backend.control;
 
 import java.util.List;
-import unisul.progweb.repository.UsuarioRep;
-import unisul.progweb.model.Usuario;
+import unisul.progweb.backend.repository.UsuarioRep;
+import unisul.progweb.backend.model.Usuario;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 
-@Controller
+@RestController
 @RequestMapping(path="/datacontrol")
 public class DatabaseControl {
 	
@@ -35,6 +34,13 @@ public class DatabaseControl {
 	
 	@PostMapping("/postAddUser")
 	public Usuario postAddUser(@Validated @RequestBody Usuario user) {
+		return this.userRep.save(user);
+	}
+	
+	@PostMapping("/teste")
+	public Usuario teste() {
+		Usuario user = new Usuario("login","senha","nome",222,"10/10/10","binario","testando");
+		user.setId(50);
 		return this.userRep.save(user);
 	}
 	
