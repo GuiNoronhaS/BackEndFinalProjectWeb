@@ -1,4 +1,4 @@
-package unisul.progweb.backend.model;
+package unisul.progweb.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,7 +12,7 @@ public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Long id;
 	private String login;
 	private String senha;
 	private String nomeCompleto;
@@ -35,11 +35,11 @@ public class Usuario {
 		this.estadoCivil = estadoCivil;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

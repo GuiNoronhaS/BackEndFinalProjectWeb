@@ -1,25 +1,25 @@
-package unisul.progweb.backend.control;
+package unisul.progweb.control;
 
 import java.util.List;
-import unisul.progweb.backend.repository.UsuarioRep;
-import unisul.progweb.backend.model.Usuario;
+import unisul.progweb.repository.UsuarioRep;
+import unisul.progweb.model.Usuario;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
-@RequestMapping(path="/datacontrol")
+@RequestMapping("/datacontrol")
 public class DatabaseControl {
 	
 	@Autowired
 	private UsuarioRep userRep;
+
 	
 	@GetMapping("/getTodos")
 	public List<Usuario> getTodosUsuarios() {
@@ -27,32 +27,27 @@ public class DatabaseControl {
 	}
 	
 	@GetMapping("/getUser/{id}")
-	public Usuario getUsuario(@PathVariable(value = "id")Integer id) {
+	public Usuario getUsuario(@PathVariable(value = "id")Long id) {
 		return this.userRep.findById(id).orElseThrow(
-				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi encontrado registro com esse ID"));	
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Não foi encontrado registro com esse ID")
+				);	
 	}
 	
 	@PostMapping("/postAddUser")
 	public Usuario postAddUser(@Validated @RequestBody Usuario user) {
 		return this.userRep.save(user);
 	}
-	
-	@PostMapping("/teste")
-	public Usuario teste() {
-		Usuario user = new Usuario("login","senha","nome",222,"10/10/10","binario","testando");
-		user.setId(50);
-		return this.userRep.save(user);
-	}
+
 	
 	@PutMapping("/putAlterarPorID/{id}")
-	public Usuario putAlterarPorId(@PathVariable(value = "id")Integer id, @Validated @RequestBody Usuario userNovo) {
+	public Usuario putAlterarPorId(@PathVariable(value = "id")Long id, @Validated @RequestBody Usuario userNovo) {
 		Usuario alterar = userNovo;
 		alterar.setId(id);
 		return this.userRep.save(alterar);
 	}
 	
-	@DeleteMapping("/apagar/{id")
-	public ResponseEntity<?> deleteUsuario(@PathVariable(value = "id") Integer id) {
+	@DeleteMapping("/apagar/{id}")
+	public ResponseEntity<?> deleteUsuario(@PathVariable(value = "id") Long id) {
 		Usuario deletar = this.getUsuario(id);
 		this.userRep.delete(deletar);
 		return ResponseEntity.ok().build();
